@@ -1,3 +1,9 @@
+noseX=0;
+noseY=0;
+difference = 0;
+rightWristX = 0;
+leftWristX = 0;
+
 function setup() {
     video = createCapture(VIDEO);
 video.size(550, 550);
@@ -12,6 +18,12 @@ poseNet.on('pose', gotPoses);
 
 function draw() {
     background('black');
+    fill('white')
+    stroke('green')
+    text("Rudra Sood", noseX-300, noseY);
+    textSize(difference);
+    document.getElementById("square_side").innerHTML = "Width and Height of a text will be = " +difference+"px"
+     
 }
 
 function modelLoaded() {
@@ -24,8 +36,13 @@ function gotPoses(results)
     if(results.length > 0)
     {
         console.log(results);
+        noseX = results[0].pose.nose.x;
+        noseY = results[0].pose.nose.y;
+
+        leftWristX = results[0].pose.leftWrist.x;        
+        rightWristX = results[0].pose.rightWrist.x; 
+        difference = floor(leftWristX - rightWristX);     
     }
 }
-
 
 
